@@ -1,0 +1,5 @@
+namespace = "my-cool-project"
+aws_instance_ami = "ami-7172b611"
+aws_instance_type = "t2.micro"
+aws_region = "us-west-2"
+ssh_key_name = "swinkler"
