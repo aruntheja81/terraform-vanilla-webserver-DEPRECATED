@@ -1,3 +1,48 @@
+resource "aws_iam_role" "webserver" {
+  name = "${var.namespace}-iam_role"
+
+  assume_role_policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Action": "sts:AssumeRole",
+      "Principal": {
+        "Service": "ec2.amazonaws.com"
+      },
+      "Effect": "Allow"
+    }
+  ]
+}
+EOF
+}
+
+resource "aws_iam_instance_profile" "webserver" {
+  name = "${var.namespace}-iam_instance_profile"
+  role = "${aws_iam_role.webserver.name}"
+}
+
+data "aws_iam_policy_document" "webserver" {
+  statement {
+      effect = "Allow"
+      actions = [
+        "s3:*",
+        "logs:*",
+        "rds:*",
+        "ec2:*"
+      ]
+      resources = [
+          "*"
+      ] 
+  }
+}
+
+resource "aws_iam_role_policy" "webserver" {
+  name   = "${var.namespace}-iam_role_policy"
+  role   = "${aws_iam_role.webserver.name}"
+  policy = "${data.aws_iam_policy_document.webserver.json}"
+}
+
 data "template_cloudinit_config" "config" {
   gzip          = true
   base64_encode = true
@@ -15,7 +60,7 @@ resource "aws_launch_template" "webserver" {
   key_name               = var.ssh_key_name
   user_data              = data.template_cloudinit_config.config.rendered
   iam_instance_profile {
-    name = var.instance_profile_name
+    name = aws_iam_instance_profile.webserver.name
   }
   vpc_security_group_ids = [var.sg.websvr]
 }
@@ -33,7 +78,8 @@ resource "aws_autoscaling_group" "webserver" {
 }
 
 module "alb" {
-  source = "terraform-aws-modules/vpc/aws"
+  //source = "terraform-aws-modules/alb/aws"
+  source = "./terraform-aws-alb"
   load_balancer_name = "${var.namespace}-alb"
   security_groups    = [var.sg.lb]
   subnets = var.vpc.public_subnets[0]

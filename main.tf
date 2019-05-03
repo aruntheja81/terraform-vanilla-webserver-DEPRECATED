@@ -7,7 +7,6 @@ module "autoscaling" {
 
   vpc                   = module.network.vpc
   sg                    = module.network.sg
-  instance_profile_name = module.iam.instance_profile_name
   pg_config             = module.database.pg_config
 }
 
@@ -18,11 +17,6 @@ module "database" {
   
   vpc               = module.network.vpc 
   sg                = module.network.sg
-}
-
-module "iam" {
-  source    = "./modules/iam"
-  namespace = var.namespace
 }
 
 module "network" {

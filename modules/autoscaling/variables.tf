@@ -14,10 +14,6 @@ variable "ssh_key_name" {
   type = string
 }
 
-variable "instance_profile_name" {
-  type = string
-}
-
 variable "sg" {
   type = any
 }
