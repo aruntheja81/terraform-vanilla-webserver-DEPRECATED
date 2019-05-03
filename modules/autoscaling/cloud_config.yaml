@@ -6,10 +6,10 @@ write_files:
       permissions: "0644"
       content: |
         {
-          "pg_user":  "${PG_USER}",
-          "pg_password": "${PG_PASSWORD}",
-          "pg_database": "${PG_DATABASE}",
-          "pg_netloc": "${PG_HOSTNAME}:${PG_PORT}"
+          "user":  "${user}",
+          "password": "${password}",
+          "database": "${database}",
+          "netloc": "${hostname}:${port}"
         }
 runcmd:
   - [ wget, "https://s3-us-west-2.amazonaws.com/terraform-in-action/bootstrap.sh", -O, /run/bootstrap.sh ]

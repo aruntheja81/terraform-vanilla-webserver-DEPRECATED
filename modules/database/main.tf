@@ -7,15 +7,15 @@ locals {
 }
 
 resource "aws_db_instance" "database" {
-  allocated_storage         = 10
-  engine                    = "mysql"
-  engine_version            = "5.7"
-  instance_class            = "db.${var.aws_instance_type}"
-  identifier                = "${var.namespace}-db-instance"
-  name                      = "dancevita"
-  username                  = "aira"
-  password                  = "${local.pg_password}"
-  db_subnet_group_name      = "${var.db_subnet_group_name}"
-  vpc_security_group_ids    = ["${var.vpc_security_group_id}"]
-  skip_final_snapshot = true
+  allocated_storage      = 10
+  engine                 = "mysql"
+  engine_version         = "5.7"
+  instance_class         = "db.${var.aws_instance_type}"
+  identifier             = "${var.namespace}-db-instance"
+  name                   = "pets"
+  username               = "admin"
+  password               = local.pg_password
+  db_subnet_group_name   = var.vpc.database_subnet_group
+  vpc_security_group_ids = [var.sg.db]
+  skip_final_snapshot    = true
 }

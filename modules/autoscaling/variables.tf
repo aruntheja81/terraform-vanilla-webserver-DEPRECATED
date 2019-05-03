@@ -1,62 +1,33 @@
 variable "namespace" {
-  type = "string"
+  type = string
 }
 
 variable "aws_instance_ami" {
-  type = "string"
+  type = string
 }
 
 variable "aws_instance_type" {
-  type = "string"
+  type = string
 }
 
 variable "ssh_key_name" {
-  type = "string"
-}
-
-variable "subnet_ids" {
-  type = "list"
-}
-
-variable "public_subnet_ids" {
-  type = "list"
-}
-variable "webapp_security_group_id" {
-  type = "string"
-}
-variable "vpc_security_group_id" {
-  type = "string"
+  type = string
 }
 
 variable "instance_profile_name" {
-  type = "string"
+  type = string
 }
 
-variable "pg_user" {
-  type = "string"
-}
-variable "pg_password" {
-  type = "string"
+variable "sg" {
+  type = any
 }
 
-variable "pg_database" {
-  type = "string"
+variable "vpc" {
+  type = any
 }
 
-variable "pg_hostname" {
-  type = "string"
-}
-variable "pg_port" {
-  type = "string"
+variable "pg_config" {
+  type = any
 }
 
-variable "aws_region" {
-  type = "string"
-}
 
-variable "vpc_id" {
-  type = "string"
-}
-variable "lb_security_group_id" {
-  type = "string"
-}

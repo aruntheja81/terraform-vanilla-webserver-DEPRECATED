@@ -1,5 +1,5 @@
 module "vpc" {
-  source = "terraform-aws-modules/vpc/aws"
+  source = "./terraform-aws-vpc"
 
   name = "${var.namespace}-vpc"
 
@@ -15,11 +15,10 @@ module "vpc" {
   single_nat_gateway = true
 }
 
-
-resource "aws_security_group" "main" {
+resource "aws_security_group" "loadbalancer" {
   name        = "${var.namespace}-lb-sg"
   description = "${var.namespace} security group"
-  vpc_id      = "${module.vpc.vpc_id}"
+  vpc_id      = module.vpc.vpc_id
 
   ingress {
     protocol  = -1
@@ -43,10 +42,10 @@ resource "aws_security_group" "main" {
   }
 }
 
-resource "aws_security_group" "webapp" {
-  name        = "${var.namespace}-webapp-sg"
+resource "aws_security_group" "webserver" {
+  name        = "${var.namespace}-websvr-sg"
   description = "${var.namespace} security group"
-  vpc_id      = "${module.vpc.vpc_id}"
+  vpc_id      = module.vpc.vpc_id
 
   ingress {
     protocol  = -1
@@ -59,7 +58,7 @@ resource "aws_security_group" "webapp" {
     protocol    = "tcp"
     from_port   = 8080
     to_port     = 8080
-    security_groups = ["${aws_security_group.main.id}"]
+    security_groups = [aws_security_group.loadbalancer.id]
   }
 
   egress {
@@ -70,10 +69,10 @@ resource "aws_security_group" "webapp" {
   }
 }
 
-resource "aws_security_group" "db" {
+resource "aws_security_group" "database" {
   name        = "${var.namespace}-db-sg"
   description = "${var.namespace} security group"
-  vpc_id      = "${module.vpc.vpc_id}"
+  vpc_id      = module.vpc.vpc_id
 
   ingress {
     protocol  = -1
@@ -86,7 +85,7 @@ resource "aws_security_group" "db" {
     protocol  = -1
     from_port = 0
     to_port   = 0
-    security_groups = ["${aws_security_group.webapp.id}"]
+    security_groups = [aws_security_group.webserver.id]
   }
 
  ingress {
