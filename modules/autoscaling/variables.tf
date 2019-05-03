@@ -18,6 +18,12 @@ variable "subnet_ids" {
   type = "list"
 }
 
+variable "public_subnet_ids" {
+  type = "list"
+}
+variable "webapp_security_group_id" {
+  type = "string"
+}
 variable "vpc_security_group_id" {
   type = "string"
 }
@@ -45,5 +51,12 @@ variable "pg_port" {
 }
 
 variable "aws_region" {
+  type = "string"
+}
+
+variable "vpc_id" {
+  type = "string"
+}
+variable "lb_security_group_id" {
   type = "string"
 }
