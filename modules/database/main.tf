@@ -10,7 +10,7 @@ resource "aws_db_instance" "database" {
   allocated_storage      = 10
   engine                 = "mysql"
   engine_version         = "5.7"
-  instance_class         = "db.${var.aws_instance_type}"
+  instance_class         = "db.t2.medium"
   identifier             = "${var.namespace}-db-instance"
   name                   = "pets"
   username               = "admin"

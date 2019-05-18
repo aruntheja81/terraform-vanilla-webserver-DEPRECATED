@@ -1,9 +1,6 @@
 module "autoscaling" {
   source                = "./modules/autoscaling"
   namespace             = var.namespace
-  aws_instance_ami      = var.aws_instance_ami
-  aws_instance_type     = var.aws_instance_type
-  ssh_key_name          = var.ssh_key_name
 
   vpc                   = module.network.vpc
   sg                    = module.network.sg
@@ -13,7 +10,6 @@ module "autoscaling" {
 module "database" {
   source            = "./modules/database"
   namespace         = var.namespace
-  aws_instance_type = var.aws_instance_type
   
   vpc               = module.network.vpc 
   sg                = module.network.sg

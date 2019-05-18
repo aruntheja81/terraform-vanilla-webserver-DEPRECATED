@@ -4,11 +4,8 @@ output "vpc" {
 
 output "sg" {
   value = {
-      lb=aws_security_group.loadbalancer.id
-      db=aws_security_group.database.id
-      websvr = aws_security_group.webserver.id
+      lb = module.lb_sg.security_group.id
+      db = module.db_sg.security_group.id
+      websvr = module.websvr_sg.security_group.id
     }
-}
-output "lb" {
-  value = aws_security_group.loadbalancer
 }
