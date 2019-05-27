@@ -3,7 +3,7 @@ resource "random_id" "random_16" {
 }
 
 locals {
-  db_password = "${random_id.random_16.b64_url}"
+  db_password = random_id.random_16.b64_url
 }
 
 resource "aws_db_instance" "database" {
