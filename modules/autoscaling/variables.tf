@@ -11,7 +11,15 @@ variable "vpc" {
 }
 
 variable "db_config" {
-  type = any
+  type = object(
+    {
+      user     = string
+      password = string
+      database = string
+      hostname = string
+      port     = string
+    }
+  )
 }
 
 
