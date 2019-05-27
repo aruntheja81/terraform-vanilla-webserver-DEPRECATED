@@ -1,7 +1,7 @@
-output "pg_config" {
+output "db_config" {
   value = {
     user     = "${aws_db_instance.database.username}"
-    password = "${local.pg_password}"
+    password = "${local.db_password}"
     database = "${aws_db_instance.database.name}"
     hostname = "${aws_db_instance.database.address}"
     port     = "${aws_db_instance.database.port}"

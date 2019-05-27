@@ -3,7 +3,7 @@ resource "random_id" "random_16" {
 }
 
 locals {
-  pg_password = "${random_id.random_16.b64_url}"
+  db_password = "${random_id.random_16.b64_url}"
 }
 
 resource "aws_db_instance" "database" {
@@ -14,7 +14,7 @@ resource "aws_db_instance" "database" {
   identifier             = "${var.namespace}-db-instance"
   name                   = "pets"
   username               = "admin"
-  password               = local.pg_password
+  password               = local.db_password
   db_subnet_group_name   = var.vpc.database_subnet_group
   vpc_security_group_ids = [var.sg.db]
   skip_final_snapshot    = true

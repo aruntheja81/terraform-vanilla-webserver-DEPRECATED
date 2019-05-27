@@ -4,7 +4,7 @@ module "autoscaling" {
 
   vpc                   = module.network.vpc
   sg                    = module.network.sg
-  pg_config             = module.database.pg_config
+  db_config             = module.database.db_config
 }
 
 module "database" {
@@ -15,13 +15,13 @@ module "database" {
   sg                = module.network.sg
 }
 
-module "network" {
-  source    = "./modules/network"
+module "networking" {
+  source    = "./modules/networking"
   namespace = var.namespace
 }
 
-output "pg_password" {
-  value = module.database.pg_config.password
+output "db_password" {
+  value = module.database.db_config.password
 }
 
 output "lb_dns_name" {
