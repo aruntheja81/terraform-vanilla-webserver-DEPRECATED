@@ -10,7 +10,7 @@ variable "vpc" {
   type = any
 }
 
-variable "pg_config" {
+variable "db_config" {
   type = any
 }
 

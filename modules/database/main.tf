@@ -1,5 +1,5 @@
 resource "random_id" "random_16" {
-  byte_length = "${16*3/4}"
+  byte_length = 16 * 3 / 4
 }
 
 locals {

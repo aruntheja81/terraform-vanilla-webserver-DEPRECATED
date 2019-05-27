@@ -1,11 +1,11 @@
 variable "namespace" {
-    type = string
+  type = string
 }
 
 variable "vpc" {
-    type = any
+  type = any
 }
 
 variable "sg" {
-    type = any
+  type = any
 }
