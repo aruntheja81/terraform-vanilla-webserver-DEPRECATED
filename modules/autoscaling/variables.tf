@@ -2,11 +2,11 @@ variable "namespace" {
   type = string
 }
 
-variable "sg" {
+variable "vpc" {
   type = any
 }
 
-variable "vpc" {
+variable "sg" {
   type = any
 }
 
